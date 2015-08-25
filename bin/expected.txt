@@ -1,0 +1,28 @@
+Welcome to TextBuddy. mytextfile.txt is ready for use.
+command: mytextfile.txt is empty.
+command: added to mytextfile.txt: "one"
+command: added to mytextfile.txt: "two"
+command: added to mytextfile.txt: "three"
+command: added to mytextfile.txt: "four"
+command: 1. one
+2. two
+3. three
+4. four
+command: deleted from mytextfile.txt: "three"
+command: 1. one
+2. two
+3. four
+command: deleted from mytextfile.txt: "one"
+command: 1. two
+2. four
+command: added to mytextfile.txt: "nine nine nine"
+command: 1. two
+2. four
+3. nine nine nine
+command: deleted from mytextfile.txt: "two"
+command: 1. four
+2. nine nine nine
+command: all content deleted from mytextfile.txt
+command: mytextfile.txt is empty.
+command: added to mytextfile.txt: "hello hello"
+command: 

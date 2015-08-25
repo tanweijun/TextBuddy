@@ -1,0 +1,18 @@
+display
+add one
+add two
+add three
+add four
+display
+delete 3
+display
+delete 1
+display
+add nine nine nine
+display
+delete 1
+display
+clear
+display
+add hello hello
+exit
