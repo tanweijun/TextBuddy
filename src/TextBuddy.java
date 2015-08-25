@@ -29,19 +29,23 @@ public class TextBuddy {
 		System.out.print("command: ");
 		String command = sc.next();
 		while (!command.equalsIgnoreCase("exit")) {
-			if (command.equalsIgnoreCase("add")) {
-				addToFile(file, sc);
-			} else if (command.equalsIgnoreCase("display")) {
-				displayFileContent(file);
-			} else if (command.equalsIgnoreCase("delete")) {
-				deleteLineInFile(file, sc);
-			} else if (command.equalsIgnoreCase("clear")) {
-				clearFile(file);
-			}
+			executeCommandByType(file, sc, command);
 			System.out.print("command: ");
 			command = sc.next();
 		}
 		sc.close();
+	}
+
+	private static void executeCommandByType(String file, Scanner sc, String command) {
+		if (command.equalsIgnoreCase("add")) {
+			addToFile(file, sc);
+		} else if (command.equalsIgnoreCase("display")) {
+			displayFileContent(file);
+		} else if (command.equalsIgnoreCase("delete")) {
+			deleteLineInFile(file, sc);
+		} else if (command.equalsIgnoreCase("clear")) {
+			clearFile(file);
+		}
 	}
 
 	private static void clearFile(String fileName) {
