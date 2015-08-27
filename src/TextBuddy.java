@@ -19,6 +19,16 @@ import java.io.FileWriter;
 import java.util.Scanner;
 
 public class TextBuddy {
+
+	private static final String MESSAGE_FILE_NOT_ENTERED = "File name not entered. Exiting program.";
+	private static final String MESSAGE_WELCOME = "Welcome to TextBuddy. %s is ready for use.";
+	private static final String MESSAGE_ENTER_COMMAND = "command: ";
+	private static final String MESSAGE_ERROR = "Error executing command.";
+	private static final String MESSAGE_CLEAR = "all content deleted from %s";
+	private static final String MESSAGE_DELETED_LINE = "deleted from %s: \"%s\"";
+	private static final String MESSAGE_ADDED_LINE = "added to %s: \"%s\"";
+	private static final String MESSAGE_FILE_EMPTY = "%s is empty.";
+	
 	public static void main(String[] args) {
 
 		exitIfNoArg(args);
@@ -28,11 +38,11 @@ public class TextBuddy {
 
 	private static void runUntilExit(String fileName) {
 		Scanner sc = new Scanner(System.in);
-		System.out.print("command: ");
+		System.out.print(MESSAGE_ENTER_COMMAND);
 		String command = sc.next();
 		while (!command.equalsIgnoreCase("exit")) {
 			executeCommandByType(fileName, sc, command);
-			System.out.print("command: ");
+			System.out.print(MESSAGE_ENTER_COMMAND);
 			command = sc.next();
 		}
 		sc.close();
@@ -56,9 +66,9 @@ public class TextBuddy {
 			file.delete();
 			File newFile = new File(fileName);
 			newFile.createNewFile();
-			System.out.println("all content deleted from " + file);
+			System.out.println(String.format(MESSAGE_CLEAR, file));
 		} catch (Exception e) {
-			System.out.println("Error clearing file.");
+			System.out.println(MESSAGE_ERROR);
 		}
 	}
 
@@ -88,14 +98,14 @@ public class TextBuddy {
 				}
 			}
 
-			System.out.println("deleted from " + fileName + ": \"" + deletedLine + "\"");
+			System.out.println(String.format(MESSAGE_DELETED_LINE, fileName, deletedLine));
 			bufferedReader.close();
 			bufferedWriter.close();
 			originalFile.delete();
 			tempFile.renameTo(originalFile);
 
 		} catch (Exception e) {
-			System.out.println("Error deleting line in file.");
+			System.out.println(MESSAGE_ERROR);
 		}
 	}
 
@@ -103,7 +113,7 @@ public class TextBuddy {
 		try {
 			File file = new File(fileName);
 			if (file.length() == 0) {
-				System.out.println(fileName + " is empty.");
+				System.out.println(String.format(MESSAGE_FILE_EMPTY, fileName));
 			} else {
 				FileReader fileReader = new FileReader(fileName);
 				BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -116,7 +126,7 @@ public class TextBuddy {
 				bufferedReader.close();
 			}
 		} catch (Exception e) {
-			System.out.println("Error reading file.");
+			System.out.println(MESSAGE_ERROR);
 		}
 	}
 
@@ -124,25 +134,25 @@ public class TextBuddy {
 		try {
 			FileWriter fileWriter = new FileWriter(fileName, true);
 			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-			String input = sc.nextLine();
-			bufferedWriter.write(input.trim());
+			String input = sc.nextLine().trim();
+			bufferedWriter.write(input);
 			bufferedWriter.newLine();
 			bufferedWriter.close();
-			System.out.println("added to " + fileName + ": \"" + input.trim() + "\"");
+			System.out.println(String.format(MESSAGE_ADDED_LINE, fileName, input));
 		} catch (Exception e) {
-			System.out.println("Error writing to file.");
+			System.out.println(MESSAGE_ERROR);
 		}
 	}
 
 	private static void exitIfNoArg(String[] args) {
 		if (args.length == 0) {
-			System.out.println("File name not entered. Exiting program.");
+			System.out.println(MESSAGE_FILE_NOT_ENTERED);
 			System.exit(0);
 		}
 	}
 
 	private static void printWelcomeMessage(String fileName) {
-		System.out.println("Welcome to TextBuddy. " + fileName + " is ready for use.");
+		System.out.println(String.format(MESSAGE_WELCOME, fileName));
 	}
 
 }

@@ -15,4 +15,7 @@ display
 clear
 display
 add hello hello
+display
+clear
+display
 exit

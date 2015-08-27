@@ -25,4 +25,7 @@ command: 1. four
 command: all content deleted from mytextfile.txt
 command: mytextfile.txt is empty.
 command: added to mytextfile.txt: "hello hello"
+command: 1. hello hello
+command: all content deleted from mytextfile.txt
+command: mytextfile.txt is empty.
 command: 
