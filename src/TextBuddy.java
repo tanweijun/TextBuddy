@@ -1,7 +1,7 @@
 
 /*
  * CS2103 CE1
- * Name			: Tan Wei Jun
+ * Author		: Tan Wei Jun
  * Matric No.	: A0125360R
  * Assumptions: - File is saved after each user operation.
  *				- Program exits if no file name is entered.
@@ -22,14 +22,12 @@ public class TextBuddy {
 		runUntilExit(args[0]);
 	}
 
-	// Runs the program until "exit" is entered as the command.
-	// Exits immediately if file name is not entered.
-	private static void runUntilExit(String file) {
+	private static void runUntilExit(String fileName) {
 		Scanner sc = new Scanner(System.in);
 		System.out.print("command: ");
 		String command = sc.next();
 		while (!command.equalsIgnoreCase("exit")) {
-			executeCommandByType(file, sc, command);
+			executeCommandByType(fileName, sc, command);
 			System.out.print("command: ");
 			command = sc.next();
 		}
