@@ -1,4 +1,3 @@
-
 /*
  * CS2103 CE1
  * Author		: Tan Wei Jun
@@ -11,8 +10,13 @@
  * 				display the file's content, add text to it, delete a certain line in
  * 				the file and clear the file. The program ends when the user enters "exit".
  */
-import java.util.*;
-import java.io.*;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.util.Scanner;
 
 public class TextBuddy {
 	public static void main(String[] args) {
