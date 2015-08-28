@@ -1,14 +1,15 @@
 display
 add one
-add two
-add three
-add four
+add two two
+addd three three three
+add three three three
+add four four four four
 display
 delete 3
 display
 delete 1
 display
-add nine nine nine
+add This is a very very very very very very very very very extremely long and very long sentence. Did I mention that this sentence is very long?
 display
 delete 1
 display

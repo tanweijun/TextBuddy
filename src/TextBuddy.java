@@ -28,6 +28,9 @@ public class TextBuddy {
 	private static final String MESSAGE_DELETED_LINE = "deleted from %s: \"%s\"";
 	private static final String MESSAGE_ADDED_LINE = "added to %s: \"%s\"";
 	private static final String MESSAGE_FILE_EMPTY = "%s is empty.";
+	private static final String MESSAGE_INVALID_COMMAND = "Invalid command. Please try again.";
+	
+	private static Scanner sc = new Scanner(System.in);
 	
 	public static void main(String[] args) {
 
@@ -37,26 +40,43 @@ public class TextBuddy {
 	}
 
 	private static void runUntilExit(String fileName) {
-		Scanner sc = new Scanner(System.in);
-		System.out.print(MESSAGE_ENTER_COMMAND);
-		String command = sc.next();
+		String input = getUserInput(sc);
+		String command = getCommandFromUserInput(input);
 		while (!command.equalsIgnoreCase("exit")) {
-			executeCommandByType(fileName, sc, command);
-			System.out.print(MESSAGE_ENTER_COMMAND);
-			command = sc.next();
+			executeCommandByType(fileName, command, input);
+			input = getUserInput(sc);
+			command = getCommandFromUserInput(input);
 		}
 		sc.close();
 	}
+	
+	private static String getUserInput(Scanner sc) {
+		System.out.print(MESSAGE_ENTER_COMMAND);
+		String input = sc.nextLine();	
+		return input;
+	}
+	
+	private static String getDataFromUserInput(String input) {
+		String[] data = input.split(" ", 2);
+		return data[1];
+	}
 
-	private static void executeCommandByType(String file, Scanner sc, String command) {
+	private static String getCommandFromUserInput(String input) {
+		String[] command = input.split(" ", 2);
+		return command[0];
+	}
+
+	private static void executeCommandByType(String file, String command, String input) {
 		if (command.equalsIgnoreCase("add")) {
-			addToFile(file, sc);
+			addToFile(file, input);
 		} else if (command.equalsIgnoreCase("display")) {
 			displayFileContent(file);
 		} else if (command.equalsIgnoreCase("delete")) {
-			deleteLineInFile(file, sc);
+			deleteLineInFile(file, input);
 		} else if (command.equalsIgnoreCase("clear")) {
 			clearFile(file);
+		} else {
+			System.out.println(MESSAGE_INVALID_COMMAND);
 		}
 	}
 
@@ -72,10 +92,10 @@ public class TextBuddy {
 		}
 	}
 
-	private static void deleteLineInFile(String fileName, Scanner sc) {
+	private static void deleteLineInFile(String fileName, String input) {
 		try {
-			int rowToDel = sc.nextInt();
-			sc.nextLine();
+			String data = getDataFromUserInput(input);
+			int rowToDel = Integer.valueOf(data);
 
 			File originalFile = new File(fileName);
 			FileReader fileReader = new FileReader(fileName);
@@ -130,15 +150,15 @@ public class TextBuddy {
 		}
 	}
 
-	private static void addToFile(String fileName, Scanner sc) {
+	private static void addToFile(String fileName, String input) {
 		try {
 			FileWriter fileWriter = new FileWriter(fileName, true);
 			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-			String input = sc.nextLine().trim();
-			bufferedWriter.write(input);
+			String data = getDataFromUserInput(input);
+			bufferedWriter.write(data);
 			bufferedWriter.newLine();
 			bufferedWriter.close();
-			System.out.println(String.format(MESSAGE_ADDED_LINE, fileName, input));
+			System.out.println(String.format(MESSAGE_ADDED_LINE, fileName, data));
 		} catch (Exception e) {
 			System.out.println(MESSAGE_ERROR);
 		}

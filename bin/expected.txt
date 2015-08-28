@@ -1,27 +1,28 @@
 Welcome to TextBuddy. mytextfile.txt is ready for use.
 command: mytextfile.txt is empty.
 command: added to mytextfile.txt: "one"
-command: added to mytextfile.txt: "two"
-command: added to mytextfile.txt: "three"
-command: added to mytextfile.txt: "four"
+command: added to mytextfile.txt: "two two"
+command: Invalid command. Please try again.
+command: added to mytextfile.txt: "three three three"
+command: added to mytextfile.txt: "four four four four"
 command: 1. one
-2. two
-3. three
-4. four
-command: deleted from mytextfile.txt: "three"
+2. two two
+3. three three three
+4. four four four four
+command: deleted from mytextfile.txt: "three three three"
 command: 1. one
-2. two
-3. four
+2. two two
+3. four four four four
 command: deleted from mytextfile.txt: "one"
-command: 1. two
-2. four
-command: added to mytextfile.txt: "nine nine nine"
-command: 1. two
-2. four
-3. nine nine nine
-command: deleted from mytextfile.txt: "two"
-command: 1. four
-2. nine nine nine
+command: 1. two two
+2. four four four four
+command: added to mytextfile.txt: "This is a very very very very very very very very very extremely long and very long sentence. Did I mention that this sentence is very long?"
+command: 1. two two
+2. four four four four
+3. This is a very very very very very very very very very extremely long and very long sentence. Did I mention that this sentence is very long?
+command: deleted from mytextfile.txt: "two two"
+command: 1. four four four four
+2. This is a very very very very very very very very very extremely long and very long sentence. Did I mention that this sentence is very long?
 command: all content deleted from mytextfile.txt
 command: mytextfile.txt is empty.
 command: added to mytextfile.txt: "hello hello"
