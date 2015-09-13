@@ -66,7 +66,7 @@ public class TextBuddy {
 		return command[0];
 	}
 
-	private static void executeCommandByType(String file, String command, String input) {
+	public static void executeCommandByType(String file, String command, String input) {
 		if (command.equalsIgnoreCase("add")) {
 			addToFile(file, input);
 		} else if (command.equalsIgnoreCase("display")) {
