@@ -96,9 +96,22 @@ public class TextBuddy {
 		}
 	}
 
-	private static String searchFile(String file, String input) {
-		// TODO Auto-generated method stub
-		return null;
+	private static String searchFile(String fileName, String data) {
+		try {
+			ArrayList<String> fileContent = addContentToArray(fileName);
+			String searchResults = "";
+			int numbering = 1;
+			for (int i = 0; i < fileContent.size(); i++) {
+				if (fileContent.get(i).toLowerCase().contains(data.toLowerCase())) {
+					searchResults += numbering + ". " + fileContent.get(i) + "\r\n";
+					numbering++;
+				}
+			}
+			searchResults = searchResults.trim();
+			return searchResults;
+		} catch (Exception e) {
+			return MESSAGE_ERROR;
+		}
 	}
 
 	private static void printFeedback(String feedback) {
