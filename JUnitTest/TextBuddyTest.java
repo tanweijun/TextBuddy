@@ -36,7 +36,7 @@ public class TextBuddyTest {
 	}
 	
 	@Test
-	public void testSortWithCapsAndNoCaps() {
+	public void testSortWithMixedCaps() {
 		TextBuddy.executeCommandByType("mytextfile.txt", "add", "add a-line for testing");
 		TextBuddy.executeCommandByType("mytextfile.txt", "add", "add d-second line for testing");
 		TextBuddy.executeCommandByType("mytextfile.txt", "add", "add D-aaathird line for testing");
@@ -48,6 +48,16 @@ public class TextBuddyTest {
 		assertEquals("check whether it is sorted", expectedContent, TextBuddy.executeCommandByType("mytextfile.txt", "display", "display"));
 	
 		TextBuddy.executeCommandByType("mytextfile.txt", "clear", "clear");
+	}
+	
+	@Test
+	public void testSearch() {
+		fail();
+	}
+	
+	@Test
+	public void testSearchWithNoResults() {
+		fail();
 	}
 	
 }
