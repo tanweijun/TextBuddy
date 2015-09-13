@@ -46,7 +46,8 @@ public class TextBuddy {
 		String input = getUserInput(sc);
 		String command = getCommandFromUserInput(input);
 		while (!command.equalsIgnoreCase("exit")) {
-			executeCommandByType(fileName, command, input);
+			String feedback = executeCommandByType(fileName, command, input);
+			printFeedback(feedback);
 			input = getUserInput(sc);
 			command = getCommandFromUserInput(input);
 		}
@@ -54,7 +55,7 @@ public class TextBuddy {
 	}
 	
 	private static String getUserInput(Scanner sc) {
-		System.out.print(MESSAGE_ENTER_COMMAND);
+		printFeedback(MESSAGE_ENTER_COMMAND);
 		String input = sc.nextLine();	
 		return input;
 	}
@@ -69,37 +70,43 @@ public class TextBuddy {
 		return command[0];
 	}
 
-	public static void executeCommandByType(String file, String command, String input) {
+	public static String executeCommandByType(String file, String command, String input) {
 		if (command.equalsIgnoreCase("add")) {
-			addToFile(file, input);
+			String data = getDataFromUserInput(input);
+			return addToFile(file, data);
 		} else if (command.equalsIgnoreCase("display")) {
-			displayFileContent(file);
+			return displayFileContent(file);
 		} else if (command.equalsIgnoreCase("delete")) {
-			deleteLineInFile(file, input);
+			String data = getDataFromUserInput(input);
+			return deleteLineInFile(file, data);
 		} else if (command.equalsIgnoreCase("clear")) {
-			clearFile(file);
+			return clearFile(file);
 		} else if (command.equalsIgnoreCase("sort")) {
-			sortFileContent(file);	
+			return sortFileContent(file);	
 		} else {
-			System.out.println(MESSAGE_INVALID_COMMAND);
+			return MESSAGE_INVALID_COMMAND;
 		}
 	}
 
-	private static void clearFile(String fileName) {
+	private static void printFeedback(String feedback) {
+		System.out.println(feedback);
+	}
+
+
+	private static String clearFile(String fileName) {
 		try {
 			File file = new File(fileName);
 			file.delete();
 			File newFile = new File(fileName);
 			newFile.createNewFile();
-			System.out.println(String.format(MESSAGE_CLEAR, file));
+			return String.format(MESSAGE_CLEAR, file);
 		} catch (Exception e) {
-			System.out.println(MESSAGE_ERROR);
+			return MESSAGE_ERROR;
 		}
 	}
 
-	private static void deleteLineInFile(String fileName, String input) {
+	private static String deleteLineInFile(String fileName, String data) {
 		try {
-			String data = getDataFromUserInput(input);
 			int rowToDel = Integer.valueOf(data);
 
 			File originalFile = new File(fileName);
@@ -122,50 +129,51 @@ public class TextBuddy {
 					deletedLine = line;
 				}
 			}
-
-			System.out.println(String.format(MESSAGE_DELETED_LINE, fileName, deletedLine));
+			
 			bufferedReader.close();
 			bufferedWriter.close();
 			originalFile.delete();
 			tempFile.renameTo(originalFile);
-
+			return String.format(MESSAGE_DELETED_LINE, fileName, deletedLine);
 		} catch (Exception e) {
-			System.out.println(MESSAGE_ERROR);
+			return MESSAGE_ERROR;
 		}
 	}
 
-	private static void displayFileContent(String fileName) {
+	private static String displayFileContent(String fileName) {
 		try {
 			File file = new File(fileName);
 			if (file.length() == 0) {
-				System.out.println(String.format(MESSAGE_FILE_EMPTY, fileName));
+				return String.format(MESSAGE_FILE_EMPTY, fileName);
 			} else {
 				FileReader fileReader = new FileReader(fileName);
 				BufferedReader bufferedReader = new BufferedReader(fileReader);
+				String output = "";
 				String line = "";
 				int lineNum = 0;
 				while ((line = bufferedReader.readLine()) != null) {
 					lineNum += 1;
-					System.out.println(lineNum + ". " + line);
+					output += lineNum + ". " + line + "\r\n";
 				}
+				output = output.trim();
 				bufferedReader.close();
+				return output;
 			}
 		} catch (Exception e) {
-			System.out.println(MESSAGE_ERROR);
+			return MESSAGE_ERROR;
 		}
 	}
 
-	private static void addToFile(String fileName, String input) {
+	private static String addToFile(String fileName, String data) {
 		try {
 			FileWriter fileWriter = new FileWriter(fileName, true);
 			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-			String data = getDataFromUserInput(input);
 			bufferedWriter.write(data);
 			bufferedWriter.newLine();
 			bufferedWriter.close();
-			System.out.println(String.format(MESSAGE_ADDED_LINE, fileName, data));
+			return String.format(MESSAGE_ADDED_LINE, fileName, data);
 		} catch (Exception e) {
-			System.out.println(MESSAGE_ERROR);
+			return MESSAGE_ERROR;
 		}
 	}
 
@@ -180,14 +188,14 @@ public class TextBuddy {
 		System.out.println(String.format(MESSAGE_WELCOME, fileName));
 	}
 
-	public static void sortFileContent(String fileName) {
+	public static String sortFileContent(String fileName) {
 		ArrayList<String> contentToSort = addContentToArray(fileName);
 		Collections.sort(contentToSort, String.CASE_INSENSITIVE_ORDER);
-		returnSortedContentToFile(fileName, contentToSort);
-		System.out.println(String.format(MESSAGE_SORTED));
+		String feedback = returnSortedContentToFile(fileName, contentToSort);
+		return feedback;
 	}
 
-	private static void returnSortedContentToFile(String fileName, ArrayList<String> contentToSort) {
+	private static String returnSortedContentToFile(String fileName, ArrayList<String> contentToSort) {
 		try {
 			clearFile(fileName);
 			FileWriter fileWriter = new FileWriter(fileName, true);
@@ -197,8 +205,9 @@ public class TextBuddy {
 				bufferedWriter.newLine();
 			}
 			bufferedWriter.close();
+			return MESSAGE_SORTED;
 		} catch (Exception e) {
-			System.out.println(MESSAGE_ERROR);
+			return MESSAGE_ERROR;
 		}
 	}
 
