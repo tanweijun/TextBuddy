@@ -116,7 +116,11 @@ public class TextBuddy {
 				}
 			}
 			searchResults = searchResults.trim();
-			return searchResults;
+			if (searchResults.length() == 0) {
+				return "No results found.";
+			} else {
+				return searchResults;
+			}
 		} catch (Exception e) {
 			return MESSAGE_ERROR;
 		}
