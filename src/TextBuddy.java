@@ -73,16 +73,21 @@ public class TextBuddy {
 	public static String executeCommandByType(String file, String command, String input) {
 		if (command.equalsIgnoreCase("add")) {
 			String data = getDataFromUserInput(input);
-			return addToFile(file, data);
+			String feedback = addToFile(file, data);
+			return feedback;
 		} else if (command.equalsIgnoreCase("display")) {
-			return displayFileContent(file);
+			String feedback = displayFileContent(file);
+			return feedback;
 		} else if (command.equalsIgnoreCase("delete")) {
 			String data = getDataFromUserInput(input);
-			return deleteLineInFile(file, data);
+			String feedback = deleteLineInFile(file, data);
+			return feedback;
 		} else if (command.equalsIgnoreCase("clear")) {
-			return clearFile(file);
+			String feedback = clearFile(file);
+			return feedback;
 		} else if (command.equalsIgnoreCase("sort")) {
-			return sortFileContent(file);	
+			String feedback = sortFileContent(file);
+			return feedback;
 		} else {
 			return MESSAGE_INVALID_COMMAND;
 		}
@@ -188,7 +193,7 @@ public class TextBuddy {
 		System.out.println(String.format(MESSAGE_WELCOME, fileName));
 	}
 
-	public static String sortFileContent(String fileName) {
+	private static String sortFileContent(String fileName) {
 		ArrayList<String> contentToSort = addContentToArray(fileName);
 		Collections.sort(contentToSort, String.CASE_INSENSITIVE_ORDER);
 		String feedback = returnSortedContentToFile(fileName, contentToSort);
