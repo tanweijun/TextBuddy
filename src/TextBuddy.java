@@ -89,7 +89,8 @@ public class TextBuddy {
 			String feedback = sortFileContent(file);
 			return feedback;
 		} else if (command.equalsIgnoreCase("search")) {
-			String feedback = searchFile(file, input);
+			String data = getDataFromUserInput(input);
+			String feedback = searchFile(file, data);
 			return feedback;
 		} else {
 			return MESSAGE_INVALID_COMMAND;
