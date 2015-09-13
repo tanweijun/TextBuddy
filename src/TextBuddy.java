@@ -175,4 +175,9 @@ public class TextBuddy {
 		System.out.println(String.format(MESSAGE_WELCOME, fileName));
 	}
 
+	public static void sortFileContent(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
