@@ -75,6 +75,8 @@ public class TextBuddy {
 			deleteLineInFile(file, input);
 		} else if (command.equalsIgnoreCase("clear")) {
 			clearFile(file);
+		} else if (command.equalsIgnoreCase("sort")) {
+		
 		} else {
 			System.out.println(MESSAGE_INVALID_COMMAND);
 		}
