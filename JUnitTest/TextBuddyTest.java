@@ -72,17 +72,6 @@ public class TextBuddyTest {
 		assertEquals("search mixed case", expectedMary, TextBuddy.executeCommandByType("mytextfile.txt", "search", "search MAry"));
 	}
 	
-	@Test
-	public void testSearchWithNoResults() {
-		TextBuddy.executeCommandByType("mytextfile.txt", "add", "add Once upon a time, there was a horse.");
-		TextBuddy.executeCommandByType("mytextfile.txt", "add", "add The horse's name is MARY.");
-		TextBuddy.executeCommandByType("mytextfile.txt", "add", "add Mary had a little lamb called HORSE.");
-		TextBuddy.executeCommandByType("mytextfile.txt", "add", "add One fine day, a wolf named john came to visit.");
-		TextBuddy.executeCommandByType("mytextfile.txt", "add", "add John ate both Mary and Horse.");
-		TextBuddy.executeCommandByType("mytextfile.txt", "add", "add THE END.");
-		
-		fail();
-		
-	}
+
 	
 }

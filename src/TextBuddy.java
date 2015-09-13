@@ -108,12 +108,11 @@ public class TextBuddy {
 			String searchResults = "";
 			int numbering = 1;
 			for (int i = 0; i < fileContent.size(); i++) {
-				String[] wordsInLine = fileContent.get(i).split(" ");
-				for (int j = 0; j < wordsInLine.length; j++) {
-					if (wordsInLine[j].equalsIgnoreCase(data)) {
-						searchResults = searchResults + numbering + ". " + fileContent.get(i) + "\r\n";
-						numbering++;
-					}
+				String line = fileContent.get(i).toLowerCase().replaceAll("[^\\w\\s]","");
+				String[] wordsInLine = line.split(" ");
+				if (Arrays.asList(wordsInLine).contains(data.toLowerCase())) {
+					searchResults = searchResults + numbering + ". " + fileContent.get(i) + "\r\n";
+					numbering++;
 				}
 			}
 			searchResults = searchResults.trim();
