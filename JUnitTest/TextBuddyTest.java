@@ -56,7 +56,7 @@ public class TextBuddyTest {
 	@Test
 	public void testSearch() {
 		TextBuddy.executeCommandByType("mytextfile.txt", "add", "add Once upon a time, there was a horse.");
-		TextBuddy.executeCommandByType("mytextfile.txt", "add", "add The horse's name is MARY.");
+		TextBuddy.executeCommandByType("mytextfile.txt", "add", "add THE horse's name is mary.");
 		TextBuddy.executeCommandByType("mytextfile.txt", "add", "add Mary had a little lamb called HORSE.");
 		TextBuddy.executeCommandByType("mytextfile.txt", "add", "add One fine day, a wolf named john came to visit.");
 		TextBuddy.executeCommandByType("mytextfile.txt", "add", "add John ate both Mary and Horse.");
@@ -65,10 +65,10 @@ public class TextBuddyTest {
 		String expectedUpon = "1. Once upon a time, there was a horse.";
 		assertEquals("search same case", expectedUpon, TextBuddy.executeCommandByType("mytextfile.txt", "search", "search upon"));
 		
-		String expectedThe = "1. The horse's name is MARY.\r\n2. THE END.";
+		String expectedThe = "1. THE horse's name is mary.\r\n2. THE END.";
 		assertEquals("search different case", expectedThe, TextBuddy.executeCommandByType("mytextfile.txt", "search", "search the"));
 		
-		String expectedMary = "1. The horse's name is MARY.\r\n2. Mary had a little lamb called HORSE.\r\n3. John ate both Mary and Horse.";
+		String expectedMary = "1. THE horse's name is mary.\r\n2. Mary had a little lamb called HORSE.\r\n3. John ate both Mary and Horse.";
 		assertEquals("search mixed case", expectedMary, TextBuddy.executeCommandByType("mytextfile.txt", "search", "search Mary"));
 	}
 	

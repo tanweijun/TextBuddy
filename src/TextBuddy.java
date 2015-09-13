@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
 
@@ -103,7 +104,8 @@ public class TextBuddy {
 			String searchResults = "";
 			int numbering = 1;
 			for (int i = 0; i < fileContent.size(); i++) {
-				if (fileContent.get(i).toLowerCase().contains(data.toLowerCase())) {
+				String[] wordsInLine = fileContent.get(i).toLowerCase().split(" ");
+				if (Arrays.asList(wordsInLine).contains(data.toLowerCase())) {
 					searchResults = searchResults + numbering + ". " + fileContent.get(i) + "\r\n";
 					numbering++;
 				}
