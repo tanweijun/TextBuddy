@@ -89,11 +89,16 @@ public class TextBuddy {
 			String feedback = sortFileContent(file);
 			return feedback;
 		} else if (command.equalsIgnoreCase("search")) {
-			String feedback = "";
+			String feedback = searchFile(file, input);
 			return feedback;
 		} else {
 			return MESSAGE_INVALID_COMMAND;
 		}
+	}
+
+	private static String searchFile(String file, String input) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	private static void printFeedback(String feedback) {
