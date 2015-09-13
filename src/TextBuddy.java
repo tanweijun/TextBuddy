@@ -33,13 +33,14 @@ public class TextBuddy {
 	private static final String MESSAGE_FILE_EMPTY = "%s is empty.";
 	private static final String MESSAGE_INVALID_COMMAND = "Invalid command. Please try again.";
 	private static final String MESSAGE_SORTED = "File content has been sorted.";
+	private static final String MESSAGE_NO_RESULTS = "No results found.";
 	
 	private static Scanner sc = new Scanner(System.in);
 	
 	public static void main(String[] args) {
 
 		exitIfNoArg(args);
-		printWelcomeMessage(args[0]);
+		printFeedback(String.format(MESSAGE_WELCOME, args[0]));
 		runUntilExit(args[0]);
 	}
 
@@ -101,23 +102,17 @@ public class TextBuddy {
 			return MESSAGE_INVALID_COMMAND;
 		}
 	}
-
+	
+	private static void printFeedback(String feedback) {
+		System.out.println(feedback);
+	}
+	
 	private static String searchFile(String fileName, String data) {
 		try {
 			ArrayList<String> fileContent = addContentToArray(fileName);
-			String searchResults = "";
-			int numbering = 1;
-			for (int i = 0; i < fileContent.size(); i++) {
-				String line = fileContent.get(i).toLowerCase().replaceAll("[^\\w\\s]","");
-				String[] wordsInLine = line.split(" ");
-				if (Arrays.asList(wordsInLine).contains(data.toLowerCase())) {
-					searchResults = searchResults + numbering + ". " + fileContent.get(i) + "\r\n";
-					numbering++;
-				}
-			}
-			searchResults = searchResults.trim();
+			String searchResults = getSearchResults(data, fileContent);
 			if (searchResults.length() == 0) {
-				return "No results found.";
+				return MESSAGE_NO_RESULTS;
 			} else {
 				return searchResults;
 			}
@@ -126,10 +121,20 @@ public class TextBuddy {
 		}
 	}
 
-	private static void printFeedback(String feedback) {
-		System.out.println(feedback);
+	private static String getSearchResults(String data, ArrayList<String> fileContent) {
+		String searchResults = "";
+		int numbering = 1;
+		for (int i = 0; i < fileContent.size(); i++) {
+			String line = fileContent.get(i).toLowerCase().replaceAll("[^\\w\\s]","");
+			String[] wordsInLine = line.split(" ");
+			if (Arrays.asList(wordsInLine).contains(data.toLowerCase())) {
+				searchResults = searchResults + numbering + ". " + fileContent.get(i) + "\r\n";
+				numbering++;
+			}
+		}
+		searchResults = searchResults.trim();
+		return searchResults;
 	}
-
 
 	private static String clearFile(String fileName) {
 		try {
@@ -220,10 +225,6 @@ public class TextBuddy {
 			System.out.println(MESSAGE_FILE_NOT_ENTERED);
 			System.exit(0);
 		}
-	}
-
-	private static void printWelcomeMessage(String fileName) {
-		System.out.println(String.format(MESSAGE_WELCOME, fileName));
 	}
 
 	private static String sortFileContent(String fileName) {
