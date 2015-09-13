@@ -16,6 +16,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class TextBuddy {
@@ -29,6 +31,7 @@ public class TextBuddy {
 	private static final String MESSAGE_ADDED_LINE = "added to %s: \"%s\"";
 	private static final String MESSAGE_FILE_EMPTY = "%s is empty.";
 	private static final String MESSAGE_INVALID_COMMAND = "Invalid command. Please try again.";
+	private static final String MESSAGE_SORTED = "File content has been sorted.";
 	
 	private static Scanner sc = new Scanner(System.in);
 	
@@ -76,7 +79,7 @@ public class TextBuddy {
 		} else if (command.equalsIgnoreCase("clear")) {
 			clearFile(file);
 		} else if (command.equalsIgnoreCase("sort")) {
-		
+			sortFileContent(file);	
 		} else {
 			System.out.println(MESSAGE_INVALID_COMMAND);
 		}
@@ -177,9 +180,41 @@ public class TextBuddy {
 		System.out.println(String.format(MESSAGE_WELCOME, fileName));
 	}
 
-	public static void sortFileContent(String string) {
-		// TODO Auto-generated method stub
-		
+	public static void sortFileContent(String fileName) {
+		ArrayList<String> contentToSort = addContentToArray(fileName);
+		Collections.sort(contentToSort, String.CASE_INSENSITIVE_ORDER);
+		returnSortedContentToFile(fileName, contentToSort);
+		System.out.println(String.format(MESSAGE_SORTED));
 	}
 
+	private static void returnSortedContentToFile(String fileName, ArrayList<String> contentToSort) {
+		try {
+			clearFile(fileName);
+			FileWriter fileWriter = new FileWriter(fileName, true);
+			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+			for (int i = 0; i < contentToSort.size(); i++) {
+				bufferedWriter.write(contentToSort.get(i));
+				bufferedWriter.newLine();
+			}
+			bufferedWriter.close();
+		} catch (Exception e) {
+			System.out.println(MESSAGE_ERROR);
+		}
+	}
+
+	private static ArrayList<String> addContentToArray(String fileName) {
+		try {
+			FileReader fileReader = new FileReader(fileName);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			ArrayList<String> contentList = new ArrayList<String>();
+			String line = "";
+			while ((line = bufferedReader.readLine()) != null) {
+				contentList.add(line);
+			}
+			bufferedReader.close();
+			return contentList;
+		} catch (Exception e) {
+			return null;
+		}
+	}
 }
