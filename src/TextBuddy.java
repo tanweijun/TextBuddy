@@ -198,13 +198,9 @@ public class TextBuddy {
 	private static String returnSortedContentToFile(String fileName, ArrayList<String> contentToSort) {
 		try {
 			clearFile(fileName);
-			FileWriter fileWriter = new FileWriter(fileName, true);
-			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 			for (int i = 0; i < contentToSort.size(); i++) {
-				bufferedWriter.write(contentToSort.get(i));
-				bufferedWriter.newLine();
+				addToFile(fileName, contentToSort.get(i));
 			}
-			bufferedWriter.close();
 			return MESSAGE_SORTED;
 		} catch (Exception e) {
 			return MESSAGE_ERROR;
