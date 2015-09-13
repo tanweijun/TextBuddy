@@ -104,7 +104,7 @@ public class TextBuddy {
 			int numbering = 1;
 			for (int i = 0; i < fileContent.size(); i++) {
 				if (fileContent.get(i).toLowerCase().contains(data.toLowerCase())) {
-					searchResults += numbering + ". " + fileContent.get(i) + "\r\n";
+					searchResults = searchResults + numbering + ". " + fileContent.get(i) + "\r\n";
 					numbering++;
 				}
 			}
