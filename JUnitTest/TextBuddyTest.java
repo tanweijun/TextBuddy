@@ -70,6 +70,9 @@ public class TextBuddyTest {
 		
 		String expectedMary = "1. THE horse's name is mary.\r\n2. Mary had a little lamb called HORSE.\r\n3. John ate both Mary and Horse.";
 		assertEquals("search mixed case", expectedMary, TextBuddy.executeCommandByType("mytextfile.txt", "search", "search MAry"));
+		
+		String expected = "No results found.";
+		assertEquals("search with no results returned", expected, TextBuddy.executeCommandByType("mytextfile.txt", "search", "search Apple"));
 	}
 	
 
