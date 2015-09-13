@@ -56,14 +56,18 @@ public class TextBuddy {
 	}
 	
 	private static String getUserInput(Scanner sc) {
-		printFeedback(MESSAGE_ENTER_COMMAND);
+		System.out.print(MESSAGE_ENTER_COMMAND);
 		String input = sc.nextLine();	
 		return input;
 	}
 	
 	private static String getDataFromUserInput(String input) {
-		String[] data = input.split(" ", 2);
-		return data[1];
+		try {
+			String[] data = input.split(" ", 2);
+			return data[1];
+		} catch (Exception e) {
+			return "";
+		}
 	}
 
 	private static String getCommandFromUserInput(String input) {
@@ -104,10 +108,12 @@ public class TextBuddy {
 			String searchResults = "";
 			int numbering = 1;
 			for (int i = 0; i < fileContent.size(); i++) {
-				String[] wordsInLine = fileContent.get(i).toLowerCase().split(" ");
-				if (Arrays.asList(wordsInLine).contains(data.toLowerCase())) {
-					searchResults = searchResults + numbering + ". " + fileContent.get(i) + "\r\n";
-					numbering++;
+				String[] wordsInLine = fileContent.get(i).split(" ");
+				for (int j = 0; j < wordsInLine.length; j++) {
+					if (wordsInLine[j].equalsIgnoreCase(data)) {
+						searchResults = searchResults + numbering + ". " + fileContent.get(i) + "\r\n";
+						numbering++;
+					}
 				}
 			}
 			searchResults = searchResults.trim();

@@ -69,7 +69,7 @@ public class TextBuddyTest {
 		assertEquals("search different case", expectedThe, TextBuddy.executeCommandByType("mytextfile.txt", "search", "search the"));
 		
 		String expectedMary = "1. THE horse's name is mary.\r\n2. Mary had a little lamb called HORSE.\r\n3. John ate both Mary and Horse.";
-		assertEquals("search mixed case", expectedMary, TextBuddy.executeCommandByType("mytextfile.txt", "search", "search Mary"));
+		assertEquals("search mixed case", expectedMary, TextBuddy.executeCommandByType("mytextfile.txt", "search", "search MAry"));
 	}
 	
 	@Test
