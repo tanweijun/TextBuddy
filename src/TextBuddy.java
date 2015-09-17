@@ -1,5 +1,5 @@
 /*
- * CS2103 CE1
+ * CS2103 CE2
  * Author		: Tan Wei Jun
  * Matric No.	: A0125360R
  * Assumptions: - File is saved after each user operation.
