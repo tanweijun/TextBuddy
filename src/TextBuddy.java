@@ -8,7 +8,8 @@
  *				- Line numbers are not added in the file, it is only shown when printing.
  * Description: This program opens a file specified by the user and allows the user to 
  * 				display the file's content, add text to it, delete a certain line in
- * 				the file and clear the file. The program ends when the user enters "exit".
+ * 				the file, clear the file, sort the file, and search the file for lines containing 
+ * 				a specific word. The program ends when the user enters "exit".
  */
 
 import java.io.BufferedReader;
@@ -16,6 +17,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
