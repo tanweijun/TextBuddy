@@ -23,6 +23,7 @@ import java.util.Scanner;
 
 public class TextBuddy {
 
+	//constants for printed string feedbacks
 	private static final String MESSAGE_FILE_NOT_ENTERED = "File name not entered. Exiting program.";
 	private static final String MESSAGE_WELCOME = "Welcome to TextBuddy. %s is ready for use.";
 	private static final String MESSAGE_ENTER_COMMAND = "command: ";
@@ -34,6 +35,10 @@ public class TextBuddy {
 	private static final String MESSAGE_INVALID_COMMAND = "Invalid command. Please try again.";
 	private static final String MESSAGE_SORTED = "File content has been sorted.";
 	private static final String MESSAGE_NO_RESULTS = "No results found.";
+	
+	//constants of index of the command and data parts of the user input to be used after splitting the input string
+	private static final int COMMAND_INDEX = 0;
+	private static final int DATA_INDEX = 1;
 	
 	private static Scanner sc = new Scanner(System.in);
 	
@@ -56,26 +61,30 @@ public class TextBuddy {
 		sc.close();
 	}
 	
+	//prompts the user for input and takes in the input
 	private static String getUserInput(Scanner sc) {
 		System.out.print(MESSAGE_ENTER_COMMAND);
 		String input = sc.nextLine();	
 		return input;
 	}
 	
+	//splits the user input and return only the data portion without the command
 	private static String getDataFromUserInput(String input) {
 		try {
 			String[] data = input.split(" ", 2);
-			return data[1];
+			return data[DATA_INDEX];
 		} catch (Exception e) {
 			return "";
 		}
 	}
 
+	//splits the user input and return only the command to be executed
 	private static String getCommandFromUserInput(String input) {
 		String[] command = input.split(" ", 2);
-		return command[0];
+		return command[COMMAND_INDEX];
 	}
 
+	//executes a command base on user input and return the feedback string
 	public static String executeCommandByType(String file, String command, String input) {
 		if (command.equalsIgnoreCase("add")) {
 			String data = getDataFromUserInput(input);
@@ -103,10 +112,12 @@ public class TextBuddy {
 		}
 	}
 	
+	//prints a string as feedback
 	private static void printFeedback(String feedback) {
 		System.out.println(feedback);
 	}
 	
+	//search the file for a specified word and return the lines containing it
 	private static String searchFile(String fileName, String data) {
 		try {
 			ArrayList<String> fileContent = addContentToArray(fileName);
@@ -121,6 +132,8 @@ public class TextBuddy {
 		}
 	}
 
+	//search an arraylist for a specified word and return the lines containing it
+	//this is the main search logic for the searchFile() method
 	private static String getSearchResults(String data, ArrayList<String> fileContent) {
 		String searchResults = "";
 		int numbering = 1;
@@ -136,6 +149,7 @@ public class TextBuddy {
 		return searchResults;
 	}
 
+	//empty the file
 	private static String clearFile(String fileName) {
 		try {
 			File file = new File(fileName);
@@ -148,6 +162,7 @@ public class TextBuddy {
 		}
 	}
 
+	//remove a specified line in the file
 	private static String deleteLineInFile(String fileName, String data) {
 		try {
 			int rowToDel = Integer.valueOf(data);
@@ -183,6 +198,7 @@ public class TextBuddy {
 		}
 	}
 
+	//returns content of the file in a string with added line numbers
 	private static String displayFileContent(String fileName) {
 		try {
 			File file = new File(fileName);
@@ -207,6 +223,7 @@ public class TextBuddy {
 		}
 	}
 
+	//append data into the file
 	private static String addToFile(String fileName, String data) {
 		try {
 			FileWriter fileWriter = new FileWriter(fileName, true);
@@ -220,6 +237,7 @@ public class TextBuddy {
 		}
 	}
 
+	//prints an error message and exit the program if no file is specified
 	private static void exitIfNoArg(String[] args) {
 		if (args.length == 0) {
 			System.out.println(MESSAGE_FILE_NOT_ENTERED);
@@ -227,6 +245,7 @@ public class TextBuddy {
 		}
 	}
 
+	//sorts the file by lines in alphabetical order ignoring case
 	private static String sortFileContent(String fileName) {
 		ArrayList<String> contentToSort = addContentToArray(fileName);
 		Collections.sort(contentToSort, String.CASE_INSENSITIVE_ORDER);
@@ -234,6 +253,7 @@ public class TextBuddy {
 		return feedback;
 	}
 
+	//replace data in a file with data that is already sorted
 	private static String returnSortedContentToFile(String fileName, ArrayList<String> contentToSort) {
 		try {
 			clearFile(fileName);
@@ -246,6 +266,7 @@ public class TextBuddy {
 		}
 	}
 
+	//adds data into a file to an arraylist and return it
 	private static ArrayList<String> addContentToArray(String fileName) {
 		try {
 			FileReader fileReader = new FileReader(fileName);
