@@ -12,6 +12,62 @@ public class TextBuddyTest {
 	}
 	
 	@Test
+	public void testAdd() {
+		String expected = "added to mytextfile.txt: \"This is the line being added.\"";
+		assertEquals("add a simple line", expected, TextBuddy.executeCommandByType("mytextfile.txt", "add", "add This is the line being added."));
+		expected = "1. This is the line being added.";
+		assertEquals("check whether content is added", expected, TextBuddy.executeCommandByType("mytextfile.txt", "display", "display"));
+		
+		TextBuddy.executeCommandByType("mytextfile.txt", "clear", "clear");
+		
+		expected = "added to mytextfile.txt: \"add add add\"";
+		assertEquals("add multiple words same as command", expected, TextBuddy.executeCommandByType("mytextfile.txt", "add", "add add add add"));
+		expected = "1. add add add";
+		assertEquals("check whether content is added", expected, TextBuddy.executeCommandByType("mytextfile.txt", "display", "display"));
+
+		TextBuddy.executeCommandByType("mytextfile.txt", "clear", "clear");
+		
+		expected = "added to mytextfile.txt: \"\"";
+		assertEquals("add without entering content", expected, TextBuddy.executeCommandByType("mytextfile.txt", "add", ""));
+		expected = "1.";
+		assertEquals("check whether nothing is added", expected, TextBuddy.executeCommandByType("mytextfile.txt", "display", "display"));
+	}
+	
+	@Test
+	public void testDelete() {
+		TextBuddy.executeCommandByType("mytextfile.txt", "add", "add This is the first line being added.");
+		TextBuddy.executeCommandByType("mytextfile.txt", "add", "add This is the second line being added.");
+		TextBuddy.executeCommandByType("mytextfile.txt", "add", "add This is the third line being added.");
+		
+		String expected = "deleted from mytextfile.txt: \"This is the second line being added.\"";
+		assertEquals("delete middle line", expected, TextBuddy.executeCommandByType("mytextfile.txt", "delete", "delete 2"));
+		expected = "1. This is the first line being added.\r\n2. This is the third line being added.";
+		assertEquals("check whether the correct line has been deleted", expected, TextBuddy.executeCommandByType("mytextfile.txt", "display", "display"));
+		
+		expected = "deleted from mytextfile.txt: \"This is the first line being added.\"";
+		assertEquals("delete first line", expected, TextBuddy.executeCommandByType("mytextfile.txt", "delete", "delete 1"));
+		expected = "1. This is the third line being added.";
+		assertEquals("check whether first line has been deleted", expected, TextBuddy.executeCommandByType("mytextfile.txt", "display", "display"));
+		
+		expected = "deleted from mytextfile.txt: \"\"";
+		assertEquals("delete none-existant line", expected, TextBuddy.executeCommandByType("mytextfile.txt", "delete", "delete 45"));
+		expected = "1. This is the third line being added.";
+		assertEquals("check whether first line has been deleted", expected, TextBuddy.executeCommandByType("mytextfile.txt", "display", "display"));
+	}
+	
+	@Test
+	public void testClear() {
+		TextBuddy.executeCommandByType("mytextfile.txt", "add", "add This is the first line being added.");
+		TextBuddy.executeCommandByType("mytextfile.txt", "add", "add This is the second line being added.");
+		TextBuddy.executeCommandByType("mytextfile.txt", "add", "add This is the third line being added.");
+		
+		String expected = "all content deleted from mytextfile.txt";
+		assertEquals("clear the file", expected, TextBuddy.executeCommandByType("mytextfile.txt", "clear", "clear"));
+		expected = "mytextfile.txt is empty.";
+		assertEquals("check whether file is really empty", expected, TextBuddy.executeCommandByType("mytextfile.txt", "display", "display"));
+	}
+	
+	@Test
 	public void testSortCaps() {
 		TextBuddy.executeCommandByType("mytextfile.txt", "add", "add A-line for testing");
 		TextBuddy.executeCommandByType("mytextfile.txt", "add", "add C-second line for testing");
