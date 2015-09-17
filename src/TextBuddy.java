@@ -25,7 +25,7 @@ import java.util.Scanner;
 
 public class TextBuddy {
 
-	//constants for printed string feedbacks
+	//constants for printing string feedbacks
 	private static final String MESSAGE_FILE_NOT_ENTERED = "File name not entered. Exiting program.";
 	private static final String MESSAGE_WELCOME = "Welcome to TextBuddy. %s is ready for use.";
 	private static final String MESSAGE_ENTER_COMMAND = "command: ";
